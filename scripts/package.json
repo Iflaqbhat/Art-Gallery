@@ -1,0 +1,14 @@
+{
+  "name": "aman-art-scripts",
+  "version": "1.0.0",
+  "description": "Admin scripts for Aman Art Gallery",
+  "main": "set-ceo-role.js",
+  "scripts": {
+    "set-ceo": "node set-ceo-role.js",
+    "list-users": "node set-ceo-role.js --list",
+    "seed": "node seed-data.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0"
+  }
+}

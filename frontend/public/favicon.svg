@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="frame" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#d4a574"/>
+      <stop offset="100%" stop-color="#8b6f47"/>
+    </linearGradient>
+    <linearGradient id="canvas" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1612"/>
+      <stop offset="100%" stop-color="#0a0908"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="64" height="64" rx="8" fill="#0a0908"/>
+
+  <rect x="14" y="10" width="36" height="44" rx="2" fill="url(#frame)"/>
+  <rect x="17" y="13" width="30" height="38" rx="1" fill="url(#canvas)"/>
+
+  <text x="32" y="36" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-style="italic" fill="#d4a574" text-anchor="middle" font-weight="500">R</text>
+
+  <rect x="22" y="44" width="20" height="1.2" fill="#d4a574" opacity="0.5"/>
+
+  <circle cx="32" cy="55" r="1.5" fill="#d4a574"/>
+</svg>

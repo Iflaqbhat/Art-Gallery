@@ -1,0 +1,12 @@
+[build]
+  base    = "aman-art/frontend"
+  command = "npm run build"
+  publish = "aman-art/frontend/dist"
+
+# Single-page app: any deep link should fall through to index.html so
+# react-router can resolve it. Without this, hard-loading e.g. /admin/inquiries
+# returns 404 from Netlify's static server.
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200

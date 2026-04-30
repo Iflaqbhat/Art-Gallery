@@ -1,0 +1,302 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────────────────────
+   Maison Aman · Curated Gallery design system
+   Warm-black → ivory → champagne gold + terracotta accents
+   ────────────────────────────────────────────────────────────────── */
+
+@layer base {
+  :root {
+    /* Surfaces (warm near-black with a brown undertone) */
+    --background: 30 12% 5%;        /* #0a0908 warm bg */
+    --foreground: 36 33% 93%;       /* #f5efe6 ivory text */
+
+    --card: 30 12% 8%;              /* #15120e card surface */
+    --card-foreground: 36 33% 93%;
+
+    --popover: 30 12% 7%;
+    --popover-foreground: 36 33% 93%;
+
+    /* Champagne gold — primary accent */
+    --primary: 32 50% 64%;          /* #d4a574 */
+    --primary-foreground: 30 18% 8%;
+
+    /* Quiet warm-grey secondary */
+    --secondary: 30 8% 14%;
+    --secondary-foreground: 36 18% 80%;
+
+    --muted: 30 8% 16%;
+    --muted-foreground: 36 12% 62%;
+
+    /* Terracotta — emphasis / CTA accent */
+    --accent: 18 60% 50%;           /* #c66b3d */
+    --accent-foreground: 36 33% 96%;
+
+    --destructive: 0 65% 56%;
+    --destructive-foreground: 36 33% 96%;
+
+    --border: 30 8% 20%;            /* #312b25 */
+    --input: 30 10% 11%;
+    --ring: 32 50% 64%;
+
+    --radius: 2px;                  /* sharper, museum-tag rectangles */
+
+    /* Editorial gradients */
+    --gradient-fade: linear-gradient(180deg, transparent 0%, hsl(var(--background)) 100%);
+    --gradient-overlay: linear-gradient(to top, rgba(10, 9, 8, 0.92) 0%, rgba(10, 9, 8, 0.4) 50%, transparent 100%);
+
+    --transition-slow: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+    --shadow-frame: 0 30px 60px -20px rgba(0, 0, 0, 0.7), 0 18px 36px -18px rgba(0, 0, 0, 0.5);
+
+    /* Sidebar (kept for any radix-ui variants that read it) */
+    --sidebar-background: 30 14% 4%;
+    --sidebar-foreground: 36 18% 80%;
+    --sidebar-primary: 32 50% 64%;
+    --sidebar-primary-foreground: 30 18% 8%;
+    --sidebar-accent: 30 8% 12%;
+    --sidebar-accent-foreground: 36 18% 80%;
+    --sidebar-border: 30 8% 18%;
+    --sidebar-ring: 32 50% 64%;
+  }
+
+  /* The site is intentionally always-dark; .dark mirrors :root */
+  .dark {
+    --background: 30 12% 5%;
+    --foreground: 36 33% 93%;
+    --card: 30 12% 8%;
+    --card-foreground: 36 33% 93%;
+    --popover: 30 12% 7%;
+    --popover-foreground: 36 33% 93%;
+    --primary: 32 50% 64%;
+    --primary-foreground: 30 18% 8%;
+    --secondary: 30 8% 14%;
+    --secondary-foreground: 36 18% 80%;
+    --muted: 30 8% 16%;
+    --muted-foreground: 36 12% 62%;
+    --accent: 18 60% 50%;
+    --accent-foreground: 36 33% 96%;
+    --destructive: 0 65% 56%;
+    --destructive-foreground: 36 33% 96%;
+    --border: 30 8% 20%;
+    --input: 30 10% 11%;
+    --ring: 32 50% 64%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Slightly larger root size — bumps everything that uses rem (most of the site)
+       up by ~12% without forcing class-by-class changes. */
+    font-size: 17px;
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.6;
+  }
+
+  /* Subtle warm grain over the entire site */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  /* Slim warm scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 3px;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--primary) / 0.5);
+  }
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Selection color: champagne wash */
+  ::selection {
+    background: hsl(var(--primary) / 0.35);
+    color: hsl(var(--foreground));
+  }
+}
+
+/* ─── Editorial type helpers ─────────────────────────────────────── */
+@layer components {
+  .font-display {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+  .font-mono-r {
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-feature-settings: "ss01";
+  }
+
+  .gallery-eyebrow {
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: hsl(var(--primary) / 0.85);
+  }
+
+  .gallery-title {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+  }
+
+  .gallery-divider {
+    width: 56px;
+    height: 1px;
+    background: hsl(var(--primary) / 0.6);
+  }
+
+  /* Museum-tag plate (used for numbering, labels) */
+  .gallery-plate {
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    border: 1px solid hsl(var(--border));
+    padding: 6px 12px;
+    background: hsl(var(--card));
+  }
+
+  /* Card surface (warm dark with a barely-there border) */
+  .gallery-card {
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+  }
+  .gallery-card:hover {
+    border-color: hsl(var(--primary) / 0.5);
+  }
+
+  /* Editorial CTA button — sharp rectangle with hairline gold border */
+  .btn-gallery {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--primary-foreground));
+    background: hsl(var(--primary));
+    border: 1px solid hsl(var(--primary));
+    transition: var(--transition-smooth);
+    cursor: pointer;
+  }
+  .btn-gallery:hover {
+    background: transparent;
+    color: hsl(var(--primary));
+  }
+  .btn-gallery-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    font-family: "DM Mono", ui-monospace, monospace;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: hsl(var(--foreground));
+    background: transparent;
+    border: 1px solid hsl(var(--border));
+    transition: var(--transition-smooth);
+    cursor: pointer;
+  }
+  .btn-gallery-ghost:hover {
+    border-color: hsl(var(--primary) / 0.7);
+    color: hsl(var(--primary));
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  .transition-slow {
+    transition: var(--transition-slow);
+  }
+
+  .shadow-frame {
+    box-shadow: var(--shadow-frame);
+  }
+
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  /* Softer fade-in entrance */
+  .reveal-up {
+    animation: revealUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+  @keyframes revealUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}

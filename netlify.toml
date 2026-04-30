@@ -1,7 +1,8 @@
 [build]
   base    = "frontend"
   command = "npm run build"
-  publish = "frontend/dist"
+  # `publish` is resolved relative to `base`, so this is frontend/dist on disk.
+  publish = "dist"
 
 # Single-page app: any deep link should fall through to index.html so
 # react-router can resolve it. Without this, hard-loading e.g. /admin/inquiries

@@ -1,7 +1,7 @@
 [build]
-  base    = "aman-art/frontend"
+  base    = "frontend"
   command = "npm run build"
-  publish = "aman-art/frontend/dist"
+  publish = "frontend/dist"
 
 # Single-page app: any deep link should fall through to index.html so
 # react-router can resolve it. Without this, hard-loading e.g. /admin/inquiries

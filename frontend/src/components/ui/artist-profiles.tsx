@@ -2,37 +2,41 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { publicDb } from "@/lib/supabase-public";
-import { PLACEHOLDER_ARTISTS } from "@/lib/media-placeholders";
+
+const initialsOf = (name: string): string => {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (!parts.length) return "·";
+  const first = parts[0]?.[0] ?? "";
+  const last = parts.length > 1 ? parts[parts.length - 1]?.[0] ?? "" : "";
+  return (first + last).toUpperCase();
+};
+
+const cleanImg = (raw: string | null | undefined): string | null => {
+  if (typeof raw !== "string") return null;
+  const t = raw.trim();
+  if (!t.length || t.includes("placeholder.svg")) return null;
+  return t;
+};
 
 const ArtistProfiles: React.FC = () => {
-  const { data = [], isLoading, isError } = useQuery({
+  const { data = [], isLoading } = useQuery({
     queryKey: ["public", "artists", "profiles"],
     queryFn: () => publicDb.getArtists(),
     staleTime: 120 * 1000,
     retry: 1,
   });
 
-  type Profile = { id: string; name: string; displayImage: string };
-  let merged: Profile[];
-
-  if (Array.isArray(data) && data.length > 0) {
-    merged = data.map((a, i: number) => {
-      const fallback = PLACEHOLDER_ARTISTS[i % PLACEHOLDER_ARTISTS.length];
-      const img = String(a.image_url ?? "");
-      const useFallback = !img.trim().length || img.includes("placeholder.svg");
-      return {
+  type Profile = { id: string; name: string; image: string | null };
+  const merged: Profile[] = Array.isArray(data)
+    ? data.map((a) => ({
         id: String(a.id),
         name: String(a.name ?? "Artist"),
-        displayImage: useFallback ? fallback.image_url : img,
-      };
-    });
-  } else {
-    merged = PLACEHOLDER_ARTISTS.map((p) => ({
-      id: p.id,
-      name: p.name,
-      displayImage: p.image_url,
-    }));
-  }
+        image: cleanImg(a.image_url),
+      }))
+    : [];
+
+  // No artists in the DB yet → render nothing rather than fake portraits.
+  if (!isLoading && merged.length === 0) return null;
 
   return (
     <section className="mb-20 sm:mb-28">
@@ -51,14 +55,8 @@ const ArtistProfiles: React.FC = () => {
         </Link>
       </div>
 
-      {isError && (
-        <p className="px-4 sm:px-6 lg:px-10 text-ivory/50 text-xs mb-3 italic">
-          Showing curated portraits — live profiles will appear once your gallery has artists.
-        </p>
-      )}
-
-      {isLoading && !merged.length ? (
-        <div className="overflow-x-auto scrollbar-hide">
+      {isLoading ? (
+        <div className="overflow-x-auto scrollbar-hide" aria-busy="true">
           <div className="flex gap-6 px-4 sm:px-6 lg:px-10 pb-2">
             {[...Array(8)].map((_, i) => (
               <div key={i} className="flex-shrink-0 text-center">
@@ -77,17 +75,24 @@ const ArtistProfiles: React.FC = () => {
                 to="/artists"
                 className="flex-shrink-0 text-center group w-24 sm:w-28"
               >
-                <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-3 rounded-full overflow-hidden border border-border group-hover:border-champagne transition-all">
-                  <img
-                    src={artist.displayImage}
-                    alt=""
-                    className="w-full h-full object-cover transition-slow group-hover:scale-110"
-                    style={{ filter: "grayscale(0.3) saturate(0.9)" }}
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src =
-                        PLACEHOLDER_ARTISTS[0].image_url;
-                    }}
-                  />
+                <div className="relative w-24 h-24 sm:w-28 sm:h-28 mb-3 rounded-full overflow-hidden border border-border group-hover:border-champagne transition-all bg-secondary">
+                  {artist.image ? (
+                    <img
+                      src={artist.image}
+                      alt=""
+                      className="w-full h-full object-cover transition-slow group-hover:scale-110"
+                      style={{ filter: "grayscale(0.3) saturate(0.9)" }}
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-secondary via-warmblack to-secondary flex items-center justify-center">
+                      <span className="font-display text-2xl sm:text-3xl text-champagne/70">
+                        {initialsOf(artist.name)}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <p className="font-display text-base text-ivory/85 truncate group-hover:text-champagne transition-colors">
                   {artist.name}

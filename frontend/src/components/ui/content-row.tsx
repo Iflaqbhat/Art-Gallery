@@ -5,7 +5,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 interface ContentItem {
   id: string;
   title: string;
-  image: string;
+  /** Image URL from the backend. Empty string / null = no image, the
+   *  card falls back to a neutral textured frame (no stock photo). */
+  image: string | null;
   year?: string;
   duration?: string;
 }
@@ -82,15 +84,25 @@ const ContentRow: React.FC<ContentRowProps> = ({
             >
               {/* Frame */}
               <div className="relative overflow-hidden bg-secondary aspect-[4/5] mb-4 transition-smooth border border-border group-hover:border-champagne/40">
-                <img
-                  src={item.image}
-                  alt=""
-                  className="w-full h-full object-cover transition-slow group-hover:scale-[1.06]"
-                  style={{ filter: "saturate(0.92)" }}
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = "/placeholder.svg";
-                  }}
-                />
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt=""
+                    className="w-full h-full object-cover transition-slow group-hover:scale-[1.06]"
+                    style={{ filter: "saturate(0.92)" }}
+                    onError={(e) => {
+                      // Hide a broken backend URL rather than swap to stock —
+                      // the frame's background does the work.
+                      e.currentTarget.style.display = "none";
+                    }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-gradient-to-br from-secondary via-secondary/70 to-warmblack flex items-center justify-center">
+                    <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-ivory/30">
+                      Image pending
+                    </span>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-warmblack/80 via-transparent to-transparent opacity-90 group-hover:opacity-60 transition-opacity" />
 
                 {/* Plate (museum-tag style) — bottom-left */}

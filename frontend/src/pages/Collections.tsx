@@ -5,7 +5,6 @@ import Footer from "@/components/ui/footer";
 import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { publicDb, supabasePublic } from "@/lib/supabase-public";
-import { PLACEHOLDER_COLLECTIONS } from "@/lib/media-placeholders";
 
 type CollectionRow = {
   id: string;
@@ -46,15 +45,12 @@ async function fetchCollectionsPage(): Promise<CollectionRow[]> {
   return (base || []).map((c) => ({ ...c, artworkCount: 0 }));
 }
 
-const bannerOrPlaceholder = (
-  raw: string | null | undefined,
-  index: number
-): string =>
-  typeof raw === "string" &&
-  raw.trim().length &&
-  raw !== "/placeholder.svg"
-    ? raw
-    : PLACEHOLDER_COLLECTIONS[index % PLACEHOLDER_COLLECTIONS.length];
+const cleanBanner = (raw: string | null | undefined): string | null => {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed.length || trimmed === "/placeholder.svg") return null;
+  return trimmed;
+};
 
 const Collections: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -198,21 +194,26 @@ const Collections: React.FC = () => {
                     <article className="space-y-5">
                       {/* Frame */}
                       <div className="relative overflow-hidden bg-secondary aspect-[4/5] border border-border group-hover:border-champagne/50 transition-smooth">
-                        <img
-                          src={bannerOrPlaceholder(
-                            collection.banner_image_url,
-                            index
-                          )}
-                          alt=""
-                          className="w-full h-full object-cover transition-slow group-hover:scale-105"
-                          style={{ filter: "saturate(0.9)" }}
-                          onError={(e) => {
-                            e.currentTarget.src =
-                              PLACEHOLDER_COLLECTIONS[
-                                index % PLACEHOLDER_COLLECTIONS.length
-                              ];
-                          }}
-                        />
+                        {(() => {
+                          const banner = cleanBanner(collection.banner_image_url);
+                          return banner ? (
+                            <img
+                              src={banner}
+                              alt=""
+                              className="w-full h-full object-cover transition-slow group-hover:scale-105"
+                              style={{ filter: "saturate(0.9)" }}
+                              onError={(e) => {
+                                e.currentTarget.style.display = "none";
+                              }}
+                            />
+                          ) : (
+                            <div className="absolute inset-0 bg-gradient-to-br from-secondary via-secondary/70 to-warmblack flex items-center justify-center">
+                              <span className="font-mono text-[10px] tracking-[0.32em] uppercase text-ivory/30">
+                                Image pending
+                              </span>
+                            </div>
+                          );
+                        })()}
                         <div className="absolute inset-0 bg-gradient-to-t from-warmblack/70 to-transparent opacity-80 group-hover:opacity-50 transition-opacity" />
 
                         {/* Plate */}

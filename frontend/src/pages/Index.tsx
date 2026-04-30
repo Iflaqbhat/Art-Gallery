@@ -8,7 +8,6 @@ import ArtistProfiles from "@/components/ui/artist-profiles";
 import Footer from "@/components/ui/footer";
 import { publicDb } from "@/lib/supabase-public";
 import { useAuth } from "@/contexts/SupabaseAuthContext";
-import { PLACEHOLDER_COLLECTIONS } from "@/lib/media-placeholders";
 import { BRAND_EST } from "@/lib/brand";
 
 interface Collection {
@@ -19,22 +18,24 @@ interface Collection {
   created_at: string;
 }
 
-const pickBanner = (raw: string | null | undefined, index: number): string => {
-  if (typeof raw === "string" && raw.length > 0 && raw !== "/placeholder.svg") {
-    return raw;
-  }
-  return PLACEHOLDER_COLLECTIONS[index % PLACEHOLDER_COLLECTIONS.length];
+/** Returns the banner URL exactly as stored in the backend, or null when
+ *  there isn't one yet. Never substitutes stock photography. */
+const cleanBanner = (raw: string | null | undefined): string | null => {
+  if (typeof raw !== "string") return null;
+  const trimmed = raw.trim();
+  if (!trimmed.length || trimmed === "/placeholder.svg") return null;
+  return trimmed;
 };
 
 const toRows = (
   list: Collection[],
   start: number,
   max: number
-): { id: string; title: string; image: string; year: string }[] =>
-  list.slice(start, start + max).map((c, idx) => ({
+): { id: string; title: string; image: string | null; year: string }[] =>
+  list.slice(start, start + max).map((c) => ({
     id: c.id,
     title: c.title,
-    image: pickBanner(c.banner_image_url, start + idx),
+    image: cleanBanner(c.banner_image_url),
     year: String(new Date(c.created_at || Date.now()).getFullYear()),
   }));
 
@@ -42,16 +43,16 @@ const stagger = (
   list: Collection[],
   offset: number,
   max: number
-): { id: string; title: string; image: string; year: string }[] => {
+): { id: string; title: string; image: string | null; year: string }[] => {
   if (!list.length) return [];
   const rotated = [
     ...list.slice(offset % list.length),
     ...list.slice(0, offset % list.length),
   ];
-  return rotated.slice(0, max).map((c, idx) => ({
+  return rotated.slice(0, max).map((c) => ({
     id: c.id,
     title: c.title,
-    image: pickBanner(c.banner_image_url, idx + offset),
+    image: cleanBanner(c.banner_image_url),
     year: String(new Date(c.created_at || Date.now()).getFullYear()),
   }));
 };
@@ -97,9 +98,36 @@ const Index: React.FC = () => {
 
       <main className="relative pt-16 sm:pt-24 pb-8">
         {firstLoad && (
-          <div className="px-4 sm:px-6 lg:px-10 space-y-4" aria-busy="true">
-            <div className="h-8 w-48 bg-secondary animate-pulse" />
-            <div className="h-32 w-full max-w-xl bg-secondary/70 animate-pulse" />
+          <div
+            className="space-y-14 sm:space-y-20"
+            aria-busy="true"
+            aria-label="Loading collections"
+          >
+            {[0, 1].map((rowIdx) => (
+              <div key={rowIdx}>
+                <div className="px-4 sm:px-6 lg:px-10 mb-7 space-y-3">
+                  <div className="h-3 w-24 bg-secondary/60 animate-pulse" />
+                  <div className="h-9 w-72 bg-secondary animate-pulse" />
+                  <div className="h-3 w-56 bg-secondary/40 animate-pulse" />
+                </div>
+                <div className="overflow-x-hidden">
+                  <div className="flex gap-5 px-4 sm:px-6 lg:px-10 pb-2">
+                    {[0, 1, 2, 3, 4].map((cardIdx) => (
+                      <div
+                        key={cardIdx}
+                        className="flex-shrink-0 w-[260px] sm:w-[300px]"
+                      >
+                        <div className="aspect-[4/5] bg-secondary/40 border border-border animate-pulse mb-4" />
+                        <div className="space-y-2 px-1">
+                          <div className="h-5 w-4/5 bg-secondary/50 animate-pulse" />
+                          <div className="h-3 w-2/5 bg-secondary/30 animate-pulse" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         )}
 

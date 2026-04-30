@@ -1,10 +1,32 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+// Defensive trim: if Netlify (or anyone editing env vars) accidentally adds
+// surrounding whitespace, quotes, or a trailing newline, Supabase will
+// respond with "Invalid API key" / 401 even though the rest of the value
+// is correct. Strip those before handing the value to the SDK.
+const cleanEnv = (v) => {
+  if (typeof v !== "string") return "";
+  return v.trim().replace(/^["']|["']$/g, "");
+};
+
+const supabaseUrl = cleanEnv(import.meta.env.VITE_SUPABASE_URL);
+const supabaseAnonKey = cleanEnv(import.meta.env.VITE_SUPABASE_ANON_KEY);
+
+// One-line console hint so we can tell from the browser whether the build
+// actually received valid-looking env values. We never log the full key.
+if (typeof window !== "undefined") {
+  // eslint-disable-next-line no-console
+  console.info(
+    `[supabase] url=${supabaseUrl || "(missing)"} keyLen=${
+      supabaseAnonKey.length
+    } keyPrefix=${supabaseAnonKey.slice(0, 14) || "(missing)"}`
+  );
+}
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error("Missing Supabase environment variables");
+  throw new Error(
+    "Missing Supabase env vars — set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY in Netlify and re-deploy with cache cleared."
+  );
 }
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {

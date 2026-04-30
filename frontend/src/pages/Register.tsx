@@ -112,7 +112,7 @@ const Register: React.FC = () => {
         <div className="text-center mb-8">
           <p className="gallery-eyebrow mb-4">— Become a member</p>
           <h1 className="font-display text-4xl sm:text-5xl text-ivory mb-3 leading-tight">
-            Join the maison
+            Join Canvaso
           </h1>
           <p className="text-muted-foreground text-sm">
             Already a member?{" "}

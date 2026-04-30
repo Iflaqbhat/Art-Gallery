@@ -12,7 +12,7 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({
   className = "",
   onClick,
-  title = "Maison Aman",
+  title = "Canvaso",
   variant = "default",
 }) => {
   return (
@@ -50,13 +50,14 @@ const Logo: React.FC<LogoProps> = ({
             x="16"
             y="20"
             textAnchor="middle"
-            fontSize="11"
+            fontSize="9"
             fontStyle="italic"
             fontFamily="Cormorant Garamond, Georgia, serif"
             fill="hsl(var(--primary))"
             fontWeight="500"
+            letterSpacing="-0.5"
           >
-            R
+            CV
           </text>
         </svg>
 
@@ -68,7 +69,7 @@ const Logo: React.FC<LogoProps> = ({
             {BRAND_MARK}
           </span>
           <span className="font-mono text-[9px] sm:text-[10px] tracking-[0.42em] uppercase text-champagne/80 mt-1">
-            {variant === "admin" ? "Curator" : "Maison"}
+            {variant === "admin" ? "Curator" : "Atelier"}
           </span>
         </div>
       </div>

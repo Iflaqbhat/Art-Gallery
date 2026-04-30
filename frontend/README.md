@@ -1,4 +1,4 @@
-# Maison Aman — art gallery frontend
+# Canvaso — art gallery frontend
 
 A sophisticated art gallery web application inspired by Netflix's user interface, built with React, TypeScript, and Tailwind CSS.
 
@@ -74,7 +74,7 @@ navigation: Arrow buttons on container hover
 // Fixed glass-morphism header
 position: fixed top-0 with backdrop-blur
 background: black/90 with blur effect
-logo: Maison Aman wordmark (champagne accent + citadel mark)
+logo: Canvaso wordmark (champagne accent + framed CV monogram)
 layout: Left-aligned nav, right-aligned utilities
 ```
 

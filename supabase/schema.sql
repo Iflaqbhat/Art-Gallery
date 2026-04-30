@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────────────────────────────────────────
---  Rével Maison — Aman Art Gallery
+--  Canvaso — Art Gallery
 --  Complete database schema for Supabase (Postgres 15+)
 --
 --  HOW TO USE

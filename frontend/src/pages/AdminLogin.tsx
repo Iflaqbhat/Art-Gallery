@@ -97,7 +97,7 @@ const AdminLogin: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="curator@maisonaman.art"
+                placeholder="curator@canvaso.art"
                 className="w-full bg-background border border-border text-ivory placeholder:text-muted-foreground/50 px-4 py-3 text-base focus:outline-none focus:border-champagne/60 transition-colors"
               />
             </div>

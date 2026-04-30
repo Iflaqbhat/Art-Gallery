@@ -179,7 +179,7 @@ export const AuthProvider = ({ children }) => {
         }
 
         toast({
-          title: "Welcome to Aman Art",
+          title: "Welcome to Canvaso",
           description: "Your account is ready — enjoy the gallery.",
         });
 

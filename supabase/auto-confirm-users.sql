@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────────────────────────────────────────
---  Aman Art — Confirm any auth users that registered before email confirmation
+--  Canvaso — Confirm any auth users that registered before email confirmation
 --  was disabled. Run this AFTER turning off "Confirm email" in:
 --      Supabase Dashboard → Authentication → Providers → Email
 --  This script:

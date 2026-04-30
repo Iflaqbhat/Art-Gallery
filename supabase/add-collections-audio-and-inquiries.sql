@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────────────────────────────────────────
---  Maison Aman — incremental migration
+--  Canvaso — incremental migration
 --  Adds:
 --    1. collections.audio_url     — curator's intro audio for each room
 --    2. collections.bundle_price  — optional "buy whole collection" price

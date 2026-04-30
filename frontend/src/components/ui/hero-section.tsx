@@ -92,7 +92,7 @@ const HeroSection: React.FC = () => {
       title: "A quiet gallery, curated one room at a time.",
       subtitle: "On view",
       description:
-        "Maison Aman is a curated art house — paintings, sculpture, and contemporary works selected with intention. Step into stillness.",
+        "Canvaso is a curated art house — paintings, sculpture, and contemporary works selected with intention. Step into stillness.",
       image_url: null,
     };
 

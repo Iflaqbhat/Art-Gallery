@@ -84,7 +84,7 @@ const ArtistsPage: React.FC = () => {
                 No artists published yet
               </h3>
               <p className="text-muted-foreground text-sm font-light">
-                The maison is preparing the next season's roster. Check back
+                The studio is preparing the next season's roster. Check back
                 soon, or{" "}
                 <Link to="/collections" className="text-champagne hover:text-ivory transition-colors">
                   browse the collections
@@ -126,7 +126,7 @@ const ArtistsPage: React.FC = () => {
                       {artist.name}
                     </h2>
                     <p className="text-muted-foreground text-sm leading-relaxed line-clamp-3 font-light">
-                      {artist.bio || "Part of the Maison Aman collective."}
+                      {artist.bio || "Part of the Canvaso collective."}
                     </p>
                   </div>
                 </article>

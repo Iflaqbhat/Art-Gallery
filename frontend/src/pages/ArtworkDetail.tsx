@@ -110,7 +110,7 @@ const ArtworkDetail: React.FC = () => {
   const handleShare = async () => {
     try {
       const url = window.location.href;
-      const text = `Look at "${artwork?.title}" on Maison Aman`;
+      const text = `Look at "${artwork?.title}" on Canvaso`;
       if (navigator.share) {
         await navigator.share({ title: artwork?.title || "Artwork", text, url });
       } else {
@@ -337,7 +337,7 @@ const ArtworkDetail: React.FC = () => {
                   </p>
                 ) : (
                   <p className="text-muted-foreground italic font-display">
-                    Part of the Maison Aman collective.
+                    Part of the Canvaso collective.
                   </p>
                 )}
               </div>

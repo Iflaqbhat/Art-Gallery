@@ -1,5 +1,5 @@
 /**
- * Maison Aman — inquiry submission helper.
+ * Canvaso — inquiry submission helper.
  *
  * Every "Inquire" / "Acquire whole collection" submission flows through here.
  * It does two things, in order, with sensible fallbacks:

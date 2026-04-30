@@ -79,12 +79,12 @@ const Footer = () => {
           <div className="md:col-span-3 space-y-4">
             <p className="gallery-eyebrow mb-5">In touch</p>
             <a
-              href="mailto:hello@revelmaison.art"
+              href="mailto:hello@canvaso.art"
               className="flex items-start gap-3 text-ivory/80 hover:text-champagne transition-colors group"
             >
               <Mail className="h-4 w-4 mt-0.5 shrink-0" />
               <span className="font-mono text-[11px] tracking-[0.16em] break-all">
-                hello@revelmaison.art
+                hello@canvaso.art
               </span>
             </a>
             <div className="flex items-start gap-3 text-ivory/60">

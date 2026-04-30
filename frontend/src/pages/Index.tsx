@@ -196,7 +196,7 @@ const Index: React.FC = () => {
         <section className="px-4 sm:px-6 lg:px-10 py-20 sm:py-28">
           <div className="max-w-4xl mx-auto text-center">
             <p className="gallery-eyebrow mb-6">
-              — From the maison · {BRAND_EST}
+              — From the atelier · {BRAND_EST}
             </p>
             <p className="font-display text-3xl sm:text-5xl text-ivory leading-tight">
               <span className="italic text-champagne">"We don't curate</span> for the

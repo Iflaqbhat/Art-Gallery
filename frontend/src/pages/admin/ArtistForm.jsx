@@ -266,7 +266,7 @@ const ArtistForm = () => {
                   required
                   value={formData.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
-                  placeholder="e.g., Aman Bhat"
+                  placeholder="e.g., Iflaq Bhat"
                   className="w-full bg-background border border-border text-ivory placeholder:text-muted-foreground/40 px-4 py-3 focus:outline-none focus:border-champagne/60 transition-colors"
                 />
               </div>

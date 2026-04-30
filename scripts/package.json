@@ -1,7 +1,7 @@
 {
-  "name": "aman-art-scripts",
+  "name": "canvaso-scripts",
   "version": "1.0.0",
-  "description": "Admin scripts for Aman Art Gallery",
+  "description": "Admin scripts for Canvaso art gallery",
   "main": "set-ceo-role.js",
   "scripts": {
     "set-ceo": "node set-ceo-role.js",

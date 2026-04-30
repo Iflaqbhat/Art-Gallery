@@ -1,5 +1,5 @@
 /**
- * Rével Maison — Aman Art Gallery
+ * Canvaso — Art Gallery
  * Curated seed data for the public schema.
  *
  *   USAGE
@@ -113,9 +113,9 @@ const ART = {
 
 const ARTISTS = [
   {
-    name: "Aman Bhat",
-    bio: "Founder of Rével Maison. A self-taught painter from Srinagar working primarily in oils, exploring landscape, light, and the quiet between things.",
-    birth_year: 1989,
+    name: "Iflaq Bhat",
+    bio: "Founder of Canvaso. A self-taught painter from Pulwama, Kashmir, working primarily in oils, exploring landscape, light, and the quiet between things.",
+    birth_year: 2002,
     nationality: "Indian",
     style: "Contemporary realism",
     image_url: ART.watercolour_landscape,
@@ -195,12 +195,12 @@ const COLLECTIONS = [
 
 /** Each entry references an artist + collection by name; we'll resolve IDs. */
 const ARTWORKS = [
-  // --- The North Light Room (Aman Bhat) ---
+  // --- The North Light Room (Iflaq Bhat) ---
   {
     title: "Northern Window, no. 4",
     description:
       "Watercolour on cold-pressed paper. Painted from a single window in early March, before sunrise.",
-    artist: "Aman Bhat",
+    artist: "Iflaq Bhat",
     collection: "The North Light Room",
     year_created: 2024,
     medium: "Watercolour on paper",
@@ -213,7 +213,7 @@ const ARTWORKS = [
     title: "A Quiet Bowl",
     description:
       "From a series of indoor objects studied under a single ceiling lamp.",
-    artist: "Aman Bhat",
+    artist: "Iflaq Bhat",
     collection: "The North Light Room",
     year_created: 2024,
     medium: "Oil on board",
@@ -224,7 +224,7 @@ const ARTWORKS = [
   {
     title: "March Morning",
     description: "Snowmelt out of focus. A landscape warmed by yellow light.",
-    artist: "Aman Bhat",
+    artist: "Iflaq Bhat",
     collection: "The North Light Room",
     year_created: 2024,
     medium: "Oil on linen",
@@ -350,7 +350,7 @@ const ARTWORKS = [
     title: "Salon Hang, Wall A",
     description:
       "A composite sketch from the gallery's main wall, painted in situ.",
-    artist: "Aman Bhat",
+    artist: "Iflaq Bhat",
     collection: "The Long Room",
     year_created: 2024,
     medium: "Pencil & oil on board",
@@ -376,7 +376,7 @@ const HERO_BANNER = {
   title: "A quiet gallery, curated one room at a time.",
   subtitle: "On view · Spring",
   description:
-    "Rével Maison is a curated art house — paintings, sculpture, and contemporary works selected with intention. Step into stillness.",
+    "Canvaso is a curated art house — paintings, sculpture, and contemporary works selected with intention. Step into stillness.",
   image_url: ART.gallery_wall,
   cta_text: "Enter the gallery",
   cta_link: "/collections",

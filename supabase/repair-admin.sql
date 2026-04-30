@@ -1,5 +1,5 @@
 -- ─────────────────────────────────────────────────────────────────────────────
---  Rével Maison — admin/profile repair
+--  Canvaso — admin/profile repair
 --
 --  Run this once if:
 --    • You re-ran schema.sql, which dropped public.users, but you already had

@@ -276,7 +276,7 @@ const InquiriesAdmin = () => {
 
                   <div className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
                     <a
-                      href={`mailto:${row.buyer_email}?subject=Re: your inquiry on Maison Aman`}
+                      href={`mailto:${row.buyer_email}?subject=Re: your inquiry on Canvaso`}
                       className="inline-flex items-center gap-1.5 text-champagne hover:text-ivory transition-colors"
                     >
                       <Mail className="h-3.5 w-3.5" />

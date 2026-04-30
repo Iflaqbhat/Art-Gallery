@@ -1,4 +1,4 @@
-# Maison Aman — Supabase setup
+# Canvaso — Supabase setup
 
 This folder is the source of truth for the database. Everything else (the old
 `fix-*.sql` files at the project root) is legacy and can be removed.

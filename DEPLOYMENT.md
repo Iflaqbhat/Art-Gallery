@@ -1,4 +1,4 @@
-# Maison Aman — Deployment guide
+# Canvaso — Deployment guide
 
 Architecture in one breath:
 

@@ -3,7 +3,7 @@ services:
     name: canvaso-gallery
     runtime: node
     plan: free
-    buildCommand: npm --prefix frontend ci && npm --prefix server ci && npm --prefix frontend run build
+    buildCommand: npm --prefix frontend ci --include=dev && npm --prefix server ci && npm --prefix frontend run build
     preDeployCommand: npm --prefix server run db:migrate
     startCommand: npm --prefix server run start
     healthCheckPath: /api/health

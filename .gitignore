@@ -67,6 +67,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.clerk
 .env.test
 .env.production
 .env.local
@@ -176,3 +177,4 @@ db_cluster-*
 # Local development
 .local
 .cache
+server/uploads/

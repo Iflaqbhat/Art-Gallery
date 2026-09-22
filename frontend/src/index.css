@@ -1,3 +1,5 @@
+@import '@clerk/ui/themes/shadcn.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,6 +11,7 @@
 
 @layer base {
   :root {
+    color-scheme: dark;
     /* Surfaces (warm near-black with a brown undertone) */
     --background: 30 12% 5%;        /* #0a0908 warm bg */
     --foreground: 36 33% 93%;       /* #f5efe6 ivory text */

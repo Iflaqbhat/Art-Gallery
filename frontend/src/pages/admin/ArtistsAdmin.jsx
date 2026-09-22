@@ -173,9 +173,9 @@ const ArtistsAdmin = () => {
                 className="border border-border bg-card hover:border-champagne/50 transition-smooth group"
               >
                 <div className="relative overflow-hidden aspect-[4/3] bg-secondary border-b border-border">
-                  {artist.profile_image_url ? (
+                  {artist.image_url ? (
                     <img
-                      src={artist.profile_image_url}
+                      src={artist.image_url}
                       alt={artist.name}
                       className="w-full h-full object-cover transition-slow group-hover:scale-105"
                       style={{ filter: "grayscale(0.25) saturate(0.9)" }}

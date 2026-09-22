@@ -4,7 +4,7 @@ import Navbar from "@/components/ui/navbar";
 import Footer from "@/components/ui/footer";
 import { Search } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { publicDb, supabasePublic } from "@/lib/supabase-public";
+import { publicDb } from "@/lib/supabase-public";
 
 type CollectionRow = {
   id: string;
@@ -17,30 +17,6 @@ type CollectionRow = {
 };
 
 async function fetchCollectionsPage(): Promise<CollectionRow[]> {
-  try {
-    const { data, error } = await supabasePublic
-      .from("collections")
-      .select(
-        `
-        *,
-        artworks ( id )
-      `
-      )
-      .order("created_at", { ascending: false });
-
-    if (!error && data?.length) {
-      return data.map((c: Record<string, unknown>) => ({
-        ...c,
-        artworkCount:
-          Array.isArray(c.artworks) && c.artworks.length
-            ? c.artworks.length
-            : 0,
-      })) as CollectionRow[];
-    }
-  } catch {
-    /* fall through */
-  }
-
   const base = await publicDb.getCollections();
   return (base || []).map((c) => ({ ...c, artworkCount: 0 }));
 }

@@ -138,8 +138,7 @@ const Index: React.FC = () => {
               We couldn't reach the gallery archive
             </p>
             <p className="text-muted-foreground text-sm mb-5 max-w-md mx-auto">
-              Check your connection and Supabase RLS (anon read on{" "}
-              <code className="font-mono text-champagne">collections</code>).
+              Check that the Canvaso API is running and can reach PostgreSQL.
             </p>
             <button onClick={() => refetch()} className="btn-gallery-ghost">
               Try again

@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: canvaso-gallery
+    runtime: node
+    plan: free
+    buildCommand: npm --prefix frontend ci && npm --prefix server ci && npm --prefix frontend run build
+    preDeployCommand: npm --prefix server run db:migrate
+    startCommand: npm --prefix server run start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: "true"
+      - key: CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: VITE_CLERK_PUBLISHABLE_KEY
+        sync: false
+      - key: VITE_API_URL
+        value: /api
+      - key: ADMIN_EMAILS
+        value: ifuubhat72@gmail.com

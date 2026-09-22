@@ -17,7 +17,21 @@ const uploadDir = resolve(process.env.UPLOAD_DIR || 'uploads')
 const frontendDir = fileURLToPath(new URL('../../frontend/dist', import.meta.url))
 await mkdir(uploadDir, { recursive: true })
 
-app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }))
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", 'https://*.clerk.accounts.dev', 'https://challenges.cloudflare.com', 'https://*.protect.clerk.com'],
+      connectSrc: ["'self'", 'https://*.clerk.accounts.dev', 'https://clerk-telemetry.com', 'https://*.clerk-telemetry.com', 'https://img.clerk.com', 'https://images.clerkstage.dev', 'https://*.protect.clerk.com:*'],
+      imgSrc: ["'self'", 'data:', 'blob:', 'https://img.clerk.com', 'https://images.clerkstage.dev', 'https://*.clerk.accounts.dev', 'https://images.unsplash.com'],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      workerSrc: ["'self'", 'blob:'],
+      frameSrc: ["'self'", 'https://challenges.cloudflare.com', 'https://*.protect.clerk.com'],
+      formAction: ["'self'"],
+    },
+  },
+}))
 app.set('trust proxy', 1)
 app.use(cors({ origin: (process.env.FRONTEND_URL || 'http://localhost:8080').split(','), credentials: true }))
 app.use(express.json({ limit: '2mb' }))

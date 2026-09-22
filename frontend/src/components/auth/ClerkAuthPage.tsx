@@ -28,7 +28,7 @@ export default function ClerkAuthPage({ mode = 'sign-in', admin = false }: { mod
             </div>
 
             <h1 className="mt-4 font-display text-2xl leading-tight text-ivory sm:text-3xl">
-              {admin ? 'Curator sign in' : isSignUp ? 'Create account' : 'Sign in'}
+              {isSignUp ? 'Create account' : 'Sign in'}
             </h1>
           </div>
 
